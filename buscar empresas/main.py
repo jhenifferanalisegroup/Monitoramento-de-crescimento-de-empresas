@@ -76,12 +76,12 @@ def salvar_no_banco(df):
     # Ajusta os nomes das colunas do DataFrame para bater com o schema do banco
     df_db = df.rename(columns={"razao_social": "nome"}).copy()
 
+    # Garante a coluna telefone com valor padrão string vazia
+    if "telefone" not in df_db.columns:
+        df_db["telefone"] = ""
+
     # Substitui NaN por None para não quebrar na inserção
     df_db = df_db.where(pd.notna(df_db), None)
-
-    # Garante um valor padrão para telefone (coluna NOT NULL na tabela)
-    # Se a tabela esperar outro campo NOT NULL adicional, trate aqui também.
-    df_db["telefone"] = df_db.get("telefone", "").fillna("")
 
     query = """
     INSERT INTO cliente_cliente (nome, cnpj, uf, cidade, telefone)

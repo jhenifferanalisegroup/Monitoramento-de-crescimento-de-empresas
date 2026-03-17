@@ -29,7 +29,7 @@ def get_connection():
         raise Exception(f"Erro ao conectar no banco Betha: {e}")
 
 
-def consultar_entradas_empresa(empresa, data_ini, data_fim):
+def consultar_saidas_empresa(empresa, data_ini, data_fim):
     """
     Consulta a quantidade de empregados ativos por empresa
     """
@@ -82,7 +82,7 @@ def consultar_entradas_empresa(empresa, data_ini, data_fim):
 
         print(f"{len(df)} empresas consultadas.")
         print(df)
-        df.to_excel("resultado_consulta_faturamento.xlsx", index=False)
+        df.to_excel("resultado_consulta_saidas.xlsx", index=False)
         return df
 
     except Exception as e:
@@ -91,4 +91,4 @@ def consultar_entradas_empresa(empresa, data_ini, data_fim):
     finally:
         conn.close()
 
-consultar_entradas_empresa(emp, data1, data2)
+consultar_saidas_empresa(emp, data1, data2)

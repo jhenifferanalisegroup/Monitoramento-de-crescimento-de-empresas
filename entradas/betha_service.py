@@ -10,7 +10,7 @@ USER = os.getenv("DB_USER")
 PASSWORD = os.getenv("DB_PASSWORD")
 
 emp = 58
-data1 = "2026-01-01"
+data1 = "2026-03-01"
 data2 = "2026-01-31"
 def get_connection():
     """

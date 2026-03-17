@@ -1,4 +1,4 @@
-from betha_service import consultar_entradas_empresa
+from betha_service import consultar_saidas_empresa
 from historico_service import buscar_ultimo_snapshot, buscar_primeiro_snapshot, salvar_snapshot
 
 
@@ -24,7 +24,7 @@ def calcular_percentual(atual, anterior):
 
 def executar_teste():
 
-    df = consultar_entradas_empresa(data_ini, data_fim)
+    df = consultar_saidas_empresa(data_ini, data_fim)
 
     print(f"\nEmpresas encontradas: {len(df)}\n")
 
@@ -35,7 +35,7 @@ def executar_teste():
         empresa = row["empresa"]
         codigo = row["codi_emp"]
         cnpj = str(row["cnpj"])
-        total_atual = row["valor_contabil"]
+        total_atual = row["valor_contabil_sai"]
         
         snapshot_ultimo = buscar_ultimo_snapshot(cnpj)
         if snapshot_ultimo is None:
@@ -68,8 +68,8 @@ def executar_teste():
             )
             continue
 
-        total_primeiro = snapshot_primeiro["total_entrada"]
-        total_anterior = snapshot_ultimo["total_entrada"]
+        total_primeiro = snapshot_primeiro["total_saida"]
+        total_anterior = snapshot_ultimo["total_saida"]
 
         crescimento_primeiro = calcular_percentual(total_atual, total_primeiro)
         crescimento_anterior = calcular_percentual(total_atual, total_anterior)
@@ -99,4 +99,4 @@ if __name__ == "__main__":
     executar_teste()
     
     for info in informacoes_empresas:
-        salvar_snapshot(info["cnpj"], info["total_atual"])
+        salvar_snapshot(info["cnpj"], info["total_saida"])
